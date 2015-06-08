@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace OpdrachtVerkeerslicht
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Verkeerslicht.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Verkeerslicht : Window
     {
-        public MainWindow()
+        public Verkeerslicht()
         {
             InitializeComponent();
         }
