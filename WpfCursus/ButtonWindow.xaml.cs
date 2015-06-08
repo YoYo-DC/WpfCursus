@@ -16,13 +16,23 @@ using System.Windows.Shapes;
 namespace WpfCursus
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ButtonWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ButtonWindow : Window
     {
-        public MainWindow()
+        public ButtonWindow()
         {
             InitializeComponent();
+            
         }
+
+        private void ButtonKleur_Click(object sender, RoutedEventArgs e)
+        {
+            Button knop = (Button)sender;
+            SolidColorBrush kleur = (SolidColorBrush)new BrushConverter().ConvertFromString(knop.Tag.ToString());
+            this.Background = kleur;
+        }
+
+
     }
 }
