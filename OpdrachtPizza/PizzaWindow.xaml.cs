@@ -46,6 +46,7 @@ namespace OpdrachtPizza
             }
         }
 
+        //Doorloop ieder child van grid. Als dit een stackpanel is, voeg dan de content van ieder ToggleButton- en Label-element in stringvorm toe aan een verzameling.
         private void buttonBestellen_Click(object sender, RoutedEventArgs e)
         {
             List<string> bestellingGegevens = new List<string>();
