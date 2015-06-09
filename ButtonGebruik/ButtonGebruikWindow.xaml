@@ -1,0 +1,18 @@
+﻿<Window x:Class="ButtonGebruik.ButtonGebruikWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <Label Name="labelTekst" BorderBrush="Black" BorderThickness="2" Height="50">
+            Dit is een TextBlock die we gaan manipuleren.
+        </Label>
+        <StackPanel Orientation="Horizontal">
+            <ToggleButton Name="buttonBold" Margin="10" Checked="buttonBold_Checked" Unchecked="buttonBold_Unchecked">
+                Bold
+            </ToggleButton> 
+            <ToggleButton Name="buttonItalic" Margin="10">
+                Italic
+            </ToggleButton>
+        </StackPanel>
+    </StackPanel>
+</Window>
