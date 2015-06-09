@@ -8,11 +8,29 @@
         </Label>
         <StackPanel Orientation="Horizontal">
             <ToggleButton Name="buttonBold" Margin="10" Checked="buttonBold_Checked" Unchecked="buttonBold_Unchecked">
-                Bold
-            </ToggleButton> 
-            <ToggleButton Name="buttonItalic" Margin="10">
-                Italic
+                <StackPanel>
+                    <Image Source="pack://application:,,,/Images/bold.png"/>
+                    <Label Content="Bold"/>
+                </StackPanel>
             </ToggleButton>
+            <ToggleButton Name="buttonItalic" Margin="10" Click="buttonItalic_Click" Content="Italic"/>
+            <TextBlock Margin="10">
+                Lettertype vergroten of verkleinen
+            </TextBlock>
+            <RepeatButton Name="repeatButtonGroter" Margin="10" Width="30" Interval="100" Delay="1000" Content="+" Click="repeatButtonGroter_Click"/>
+            <RepeatButton Name="repeatButtonKleiner" Margin="10" Width="30" Interval="100" Delay="1000" Content="-" Click="repeatButtonKleiner_Click"/>
+        </StackPanel>
+        <Label Margin="0,30,0,10" BorderBrush="Blue" BorderThickness="1" Content="Tekstkleur"/>
+        <StackPanel>
+            <RadioButton GroupName="kleur" Margin="5,0" Content="Blue" Checked="Kleur_Checked"/>
+            <RadioButton GroupName="kleur" Margin="5,0" Content="Green" Checked="Kleur_Checked"/>
+            <RadioButton GroupName="kleur" Margin="5,0" Content="Red" Checked="Kleur_Checked"/>
+            <RadioButton GroupName="kleur" Margin="5,0" Content="Black" Checked="Kleur_Checked"/>
+        </StackPanel>
+        <Label Margin="0,30,0,10" BorderBrush="Blue" BorderThickness="1" Content="Bold en Italic"/>
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Name="checkBoxBold" Content="Bold" Margin="10,0" Click="checkBoxBold_Click"/>
+            <CheckBox Name="checkBoxItalic" Content="Italic" Margin="10,0" Click="buttonItalic_Click"/>
         </StackPanel>
     </StackPanel>
 </Window>
