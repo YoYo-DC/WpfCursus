@@ -1,0 +1,23 @@
+﻿<Window x:Class="OpdrachtVerkeerslicht.Verkeerslicht"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Verkeerslicht" Height="350" Width="525">
+    <!--<Grid>-->
+    <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>-->
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Name="lichtPanel" Background="Yellow">
+            <Ellipse Name="roodLicht" Height="70" Width="70" Margin="10,20,10,10" Fill="Red" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+            <Ellipse Name="oranjeLicht" Height="70" Width="70" Margin="10,20,10,10" Fill="Orange" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0" />
+            <Ellipse Name="groenLicht"  Height="70" Width="70" Margin="10,20,10,10" Fill="Green" HorizontalAlignment="Center" VerticalAlignment="Bottom" Opacity="0" />
+        </StackPanel>
+        <StackPanel Name="knopPanel" Margin="50,0" VerticalAlignment="Center">
+            <Button Name="goButton" Height="25" Width="80" Margin="30" Content="Go" IsEnabled="False" Tag="Green" Click="veranderButton_Click"/>
+            <Button Name="opgeletButton" Height="25" Width="80" Margin="10" Content="Opgelet" Tag="Orange" Click="veranderButton_Click"/>
+            <Button Name="stopButton" Height="25" Width="80" Margin="30" Content="Stop" IsEnabled="False" Tag="Red" Click="veranderButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+    <!--</Grid>-->
+</Window>
