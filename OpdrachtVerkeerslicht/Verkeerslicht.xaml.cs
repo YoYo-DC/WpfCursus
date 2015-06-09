@@ -25,6 +25,7 @@ namespace OpdrachtVerkeerslicht
             InitializeComponent();
         }
 
+        //Opgelet: dit is GEEN optimalisatie!
         private void veranderButton_Click(object sender, RoutedEventArgs e)
         {
             Button knop = (Button)sender;
