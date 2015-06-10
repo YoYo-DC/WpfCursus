@@ -1,10 +1,10 @@
 ﻿<Window x:Class="OpdrachtPizza.PizzaWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="370" Width="525">
     <StackPanel Orientation="Vertical">
         <TextBlock Name="textBlockBestellen" TextAlignment="Center" FontSize="30" Text="Pizza bestellen"/>
-        <Grid Name="gridBestelling" ShowGridLines="True" Height="250">
+        <Grid Name="gridBestelling" ShowGridLines="True" Height="270">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="50"/>
@@ -34,18 +34,18 @@
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                 <TextBlock Name="textBlockHoeveelheid" Text="hoeveelheid:" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Label Name="labelAantal" Content="1" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
                     <RepeatButton Name="repeatButtonVerhogen" Content="+" Click="repeatButtonVerhogen_Click" Delay="1000" Interval="100"/>
                     <RepeatButton Name="repeatButtonVerlagen" Content="-" Click="repeatButtonVerlagen_Click" Delay="1000" Interval="100"/>
                 </StackPanel>
             </StackPanel>
-            <Button Name="buttonBestellen" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Click="buttonBestellen_Click">
+            <Button Name="buttonBestellen" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Width="120" Margin="0,10,0,0" Click="buttonBestellen_Click">
                 <StackPanel Orientation="Vertical">
                     <Image Source="pack://application,,,/Images/pizza.jpg" Stretch="None" Margin="10" UseLayoutRounding="False"/>
                     <TextBlock Text="BESTELLEN"/>
                 </StackPanel>
             </Button>
         </Grid>
-        <Label Name="labelBestelling"/>
+        <TextBlock Name="textBlockBestelling" Height="30" HorizontalAlignment="Left" Width="350" TextWrapping="WrapWithOverflow" />
     </StackPanel>
 </Window>
