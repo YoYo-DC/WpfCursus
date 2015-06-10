@@ -41,7 +41,7 @@
             </StackPanel>
             <Button Name="buttonBestellen" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Width="120" Margin="0,10,0,0" Click="buttonBestellen_Click">
                 <StackPanel Orientation="Vertical">
-                    <Image Source="pack://application,,,/Images/pizza.jpg" Stretch="None" Margin="10" UseLayoutRounding="False"/>
+                    <Image Source="pack://application,,,/Images/pizza.jpg" Stretch="Uniform"  Margin="10" UseLayoutRounding="False"/>
                     <TextBlock Text="BESTELLEN"/>
                 </StackPanel>
             </Button>
