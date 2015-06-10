@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpdrachtPizza", "OpdrachtPi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HobbyLijst", "HobbyLijst\HobbyLijst.csproj", "{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpdrachtTelefoon", "OpdrachtTelefoon\OpdrachtTelefoon.csproj", "{26595697-764C-409A-9C9B-3360A504A587}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26595697-764C-409A-9C9B-3360A504A587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26595697-764C-409A-9C9B-3360A504A587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26595697-764C-409A-9C9B-3360A504A587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26595697-764C-409A-9C9B-3360A504A587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
