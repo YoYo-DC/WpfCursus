@@ -1,0 +1,55 @@
+﻿<Window x:Class="HobbyLijst.HobbyLijstWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="380" Width="525" Loaded="Window_Loaded">
+    <StackPanel Name="stackPanel1">
+        <StackPanel Name="stackPanelCategorie" Margin="10" Orientation="Horizontal">
+            <Label Name="labelCategorie" Content="Categorie : "/>
+            <ComboBox Name="ComboBoxCategorie" Width="200" HorizontalAlignment="Left" SelectionChanged="ComboBoxCategorie_SelectionChanged"/>
+        </StackPanel>
+        <StackPanel Name="stackPanelHobbies" Orientation="Horizontal" Margin="0,20">
+            <ListBox Name="listBoxHobbies" Height="100" Width="300" Margin="10,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="275">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Path=Symbool}" Stretch="Fill"
+                                       Height="40" Width="40"/>
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{Binding Path=Activiteit}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Name="buttonKies" Width="150" Height="20" VerticalAlignment="Top"
+                    Margin="10" Content="Kies" Click="buttonKies_Click"/>
+        </StackPanel>
+        <StackPanel Name="stackPanelGekozen" Orientation="Horizontal" Margin="0,10">
+            <ListBox Name="listBoxGekozen" Height="100" Width="300" Margin="10,0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="60">
+                            <StackPanel>
+                                <Image Stretch="Fill" Source="{Binding Path=Symbool}"
+                                       Height="40" Width="40"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Text="{Binding Path=Activiteit}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Name="buttonVerwijderen" Height="20" Width="150" VerticalAlignment="Top"
+                    Margin="10,0" Content="Verwijderen" Click="buttonVerwijderen_Click"/>
+        </StackPanel>
+        <StackPanel>
+            <Button Name="buttonSamenvatting" Margin="10" Content="Samenvatting" Click="buttonSamenvatting_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

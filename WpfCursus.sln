@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonGebruik", "ButtonGebr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpdrachtPizza", "OpdrachtPizza\OpdrachtPizza.csproj", "{71F37846-22E2-401B-B4CF-B94D11189442}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HobbyLijst", "HobbyLijst\HobbyLijst.csproj", "{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{71F37846-22E2-401B-B4CF-B94D11189442}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F37846-22E2-401B-B4CF-B94D11189442}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F37846-22E2-401B-B4CF-B94D11189442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F9C91A-A4F1-4020-9DAD-CC0C42966543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
