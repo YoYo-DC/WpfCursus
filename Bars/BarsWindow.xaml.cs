@@ -236,6 +236,27 @@ namespace Bars
         private double a4Hoogte = 29.7 / 2.54 * 96;
         private double vertPositie;
 
+        /* Maakt het FixedDocument-object nodig voor de afdruk aan:
+         * 
+         * Belangrijke fields (private): grootte en breedte van papier (in pixels!), de positie van de "printkop"
+         * 
+         * 1) We hebben om de één of andere reden een DocumentPaginator-object nodig als parameter voor de PrintDocument-method, hoewel we vertrekken van een nieuw FixedDocument-object
+         * 2) Dat DocumentPaginator-object bevat informatie over alle afdruk-pagina's
+         * 3) Zo kunnen we informatie over de paginagrootte instellen via de PageSize-property
+         * !) Het FixedDocument-object staat niet gelijk met één af te drukken pagina, maar bevat alle
+         *    af te drukken pagina's als een verzameling van PageContent-objecten (standaard is die leeg)
+         * 4) We maken een nieuw PageContent-object aan en stoppen dat in de verzameling
+         * !) Dit object is nog steeds niet de af te drukken pagina zelf, maar bevat wel info over die pagina
+         * 5) We maken een nieuw FixedPage-object aan (dit is eindelijk de af te drukken pagina) en maken de info
+         *    hierover bekend aan het PageContent-object via de Child-property van dat object.
+         * 6) We stellen (God knows why...) opnieuw de hoogte en breedte van de pagina in.
+         * 7) We vullen de inhoud van de pagina in:
+         *     Die inhoud bestaat uit een verzameling van TextBlock-objecten:
+         *     
+         *     In dit geval kan je best één TextBlock-object laten overeenkomen met 1 regel op de afdrukpagina
+         *     Ieder TextBlock-object is de returnwaarde van een aparte method
+         *     !) Hier is de GetLineText-property van TextBox zeer handig
+        */
         private FixedDocument StelAfdrukSamen()
         {
             FixedDocument document = new FixedDocument();
@@ -291,6 +312,35 @@ namespace Bars
             {
                 afdrukken.PrintDocument(StelAfdrukSamen().DocumentPaginator, "tekstbox");
             }
+        }
+
+        // Maak een nieuw Window-object aan van het type Afdrukvoorbeeld.
+        // Leg een Parent-Child relatie tussen dit Window-object (BarsWindow) en dat Window-object (Afdrukvoorbeeld).
+        // Toon het Window-object aan de gebruiker
+        private void PrintPreview_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Afdrukvoorbeeld preview = new Afdrukvoorbeeld();
+            preview.Owner = this;
+            preview.AfdrukDocument = StelAfdrukSamen();
+            preview.ShowDialog();
+        }
+
+        //Hier enkel specifiëren wat er moet gebeuren als de gebruiker het programma NIET wil afsluiten!
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (MessageBox.Show("Programma afsluiten ?", "Afsluiten",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No)
+                == MessageBoxResult.No)
+                e.Cancel = true;
+        }
+
+        //Belangrijk om weten: de Close()-method sluit de applicatie hier niet direct af, 
+        // maar roept eerst de Window_Closing EventHandler op!
+        //Daarom moet je in deze method geen rekening houden met wat er moet gebeuren als
+        // de gebruiker het programma toch niet wil afsluiten.
+        private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
