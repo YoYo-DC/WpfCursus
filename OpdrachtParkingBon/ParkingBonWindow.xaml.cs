@@ -145,6 +145,8 @@ namespace ParkingBon
             this.Close();
         }
 
+        //Probeer eens een bool als parameter te gebruiken waar van je de waarde koppelt aan
+        // elke IsEnabled-property
         private void ControleerTeBetalen()
         {
             string bedrag = TeBetalenLabel.Content.ToString().Trim();
@@ -181,31 +183,28 @@ namespace ParkingBon
             afdruk.Pages.Add(inhoud);
 
             FixedPage pagina = new FixedPage();
+            inhoud.Child = pagina;
             pagina.Width = docBreedteValue;
             pagina.Height = docLengteValue;
             vertPositieValue = 96;
             horizPositieValue = 96;
-            pagina.Children.Add(Afbeelding(vertPositieValue,horizPositieValue,"pack://application:,,,/Images/parkingbon.jpg"));
-            horizPositieValue += 300;
-            pagina.Children.Add(Regel("datum: "+DatumBon.Text.ToString()));
-            pagina.Children.Add(Regel("starttijd: " + AankomstLabelTijd.ToString()));
-            pagina.Children.Add(Regel("eindtijd: " + VertrekLabelTijd.ToString()));
-            pagina.Children.Add(Regel("bedrag betaald: " + TeBetalenLabel.ToString()));
+            pagina.Children.Add(Afbeelding(logoImage));
+            horizPositieValue += 204;
+            pagina.Children.Add(Regel("datum: " + DatumBon.Text.ToString()));
+            pagina.Children.Add(Regel("starttijd: " + AankomstLabelTijd.Content.ToString()));
+            pagina.Children.Add(Regel("eindtijd: " + VertrekLabelTijd.Content.ToString()));
+            pagina.Children.Add(Regel("bedrag betaald: " + TeBetalenLabel.Content.ToString()));
 
             return afdruk;
 
         }
 
-        private Image Afbeelding(double boven, double links, string bron)
+        private Image Afbeelding(Image bron)
         {
             Image afbeelding = new Image();
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(bron,UriKind.Absolute);
-            bitmap.EndInit();
-            afbeelding.Source = bitmap;
+            afbeelding.Source = logoImage.Source;
             afbeelding.Margin =
-                new Thickness(links, vertPositieValue, 96, 96);
+                new Thickness(horizPositieValue, vertPositieValue, 96, 96);
 
             return afbeelding;
         }
@@ -213,11 +212,11 @@ namespace ParkingBon
         private TextBlock Regel(string tekst)
         {
             TextBlock deRegel = new TextBlock();
-            deRegel.Text = tekst+"\n";
+            deRegel.Text = tekst + "\n";
             deRegel.FontSize = 18;
             deRegel.Margin =
                 new Thickness(horizPositieValue, vertPositieValue, 96, 96);
-            vertPositieValue += 18;
+            vertPositieValue += deRegel.FontSize * 2;
 
             return deRegel;
         }
