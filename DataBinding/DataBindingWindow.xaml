@@ -34,6 +34,11 @@
             </ComboBox>
         </StackPanel>
         <TextBlock Margin="10" FontSize="{Binding ElementName=grootteSlider, Path=Value}" Text="Tekst"
-                   FontFamily="{Binding ElementName=comboBoxLettertype, Path=SelectedValue}"></TextBlock>
+                   FontFamily="{Binding ElementName=comboBoxLettertype, Path=SelectedValue}"/>
+        <StackPanel Name="panelVerander" Orientation="Horizontal" Margin="10">
+            <TextBox Name="textBoxVerander" Width="100" Height="30" Margin="10" Text="{Binding Path=Naam}"/>
+            <Button Name="buttonVerander" Content="verander" Margin="10" Click="buttonVerander_Click"/>
+            <Button Name="buttonToonNaam" Content="toon naam" Margin="10" Click="buttonToonNaam_Click"/>
+        </StackPanel>
     </StackPanel>
 </Window>

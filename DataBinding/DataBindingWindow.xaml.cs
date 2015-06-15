@@ -21,12 +21,25 @@ namespace DataBinding
     /// </summary>
     public partial class DataBindingWindow : Window
     {
+        public Persoon persoon = new Persoon("jan");
+
         public DataBindingWindow()
         {
             InitializeComponent();
             SortDescription sd = new SortDescription("Source", ListSortDirection.Ascending);
             comboBoxLettertype.Items.SortDescriptions.Add(sd);
             comboBoxLettertype.SelectedItem = new FontFamily("Arial");
+            textBoxVerander.DataContext = persoon;
+        }
+
+        private void buttonToonNaam_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(persoon.Naam);
+        }
+
+        private void buttonVerander_Click(object sender, RoutedEventArgs e)
+        {
+            persoon.Naam = "piet";
         }
     }
 }
