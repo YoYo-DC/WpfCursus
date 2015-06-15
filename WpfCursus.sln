@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KleurenKiezer", "KleurenKie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBinding", "DataBinding\DataBinding.csproj", "{9FAFB223-1D9A-42DE-A9B5-3FA18336BB43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloemSamenstelling", "BloemSamenstelling\BloemSamenstelling.csproj", "{D183000C-3B64-4EF0-816B-873D5B86D5CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{9FAFB223-1D9A-42DE-A9B5-3FA18336BB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FAFB223-1D9A-42DE-A9B5-3FA18336BB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FAFB223-1D9A-42DE-A9B5-3FA18336BB43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D183000C-3B64-4EF0-816B-873D5B86D5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D183000C-3B64-4EF0-816B-873D5B86D5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D183000C-3B64-4EF0-816B-873D5B86D5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D183000C-3B64-4EF0-816B-873D5B86D5CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
