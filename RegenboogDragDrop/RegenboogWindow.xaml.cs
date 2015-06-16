@@ -24,6 +24,8 @@ namespace RegenboogDragDrop
             InitializeComponent();
         }
 
+        // Dit field mag enkel gebruikt worden om gegevens over het gesleepte object te stockeren via de DoDragDrop-method.
+        // Dit wil zeggen dat de reference variabele NIET mag verwijzen naar gecaste sender-objecten in de DragEnter, DragDrop en Drop-events!
         private Rectangle sleepRechthoekValue = new Rectangle();
 
         private void Rectangle_MouseMove(object sender, MouseEventArgs e)
