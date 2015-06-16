@@ -17,6 +17,19 @@ namespace SchuifSpel
     /// <summary>
     /// Interaction logic for SchuifSpelWindow.xaml
     /// </summary>
+
+    /*
+     * Feedback:
+     * 
+     * Zorg ervoor dat de de posities van het gesleepte en lege stuk bijgehouden worden.
+     * Onthoudt de Image als data voor de DragDrop en niet de ImageSource
+     * Ga voor de code van LigtNaastLeegStuk uit van 2 scenario's:
+     *  1) Gesleept stuk ligt links of rechts van leeg stuk
+     *  2) Gesleept stuk ligt boven of onder leeg stuk
+     * 
+     * 
+     */ 
+
     public partial class SchuifSpelWindow : Window
     {
 
@@ -146,14 +159,75 @@ namespace SchuifSpel
             Shuffle();
         }
 
+        private Image sleepStuk;
+
         private void stuk_MouseMove(object sender, MouseEventArgs e)
         {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                sleepStuk = (Image)sender;
+                DataObject sleepInfo = new DataObject("sleepInfo", sleepStuk.Source);
+                DragDrop.DoDragDrop(sleepStuk, sleepInfo, DragDropEffects.Move);
+            }
         }
 
         private void puzzelGrid_Drop(object sender, DragEventArgs e)
         {
+            if (e.Data.GetDataPresent("sleepInfo"))
+            {
+
+                Image dropZone = (Image)sender;
+
+                if (LigtNaastLeegStuk(dropZone))
+                {
+                    BitmapImage sleepImage = (BitmapImage)e.Data.GetData("sleepInfo");
+                    Image nieuwStuk = new Image();
+                    nieuwStuk.Name = sleepStuk.Name;
+                    nieuwStuk.Source = sleepImage;
+                    int rijNieuwStuk = Grid.GetRow(sleepStuk);
+                    int kolomNieuwStuk = Grid.GetColumn(sleepStuk);
+                    puzzelGrid.Children.Remove(sleepStuk);
+                    zetImage(Grid.GetRow(dropZone), Grid.GetColumn(dropZone), nieuwStuk);
+                    puzzelGrid.Children.Remove(dropZone);
+                    zetImage(rijNieuwStuk, kolomNieuwStuk, dropZone);
+                    Check();
+                }
+
+
+            }
         }
 
+        private bool LigtNaastLeegStuk(Image leegStuk)
+        {
+            int rijSleepStuk = Grid.GetRow(sleepStuk);
+            int kolomSleepstuk = Grid.GetColumn(sleepStuk);
+
+            int rijLeegStuk = Grid.GetRow(leegStuk);
+            int minimumRij = rijLeegStuk - 1;
+            if (minimumRij < 0)
+                minimumRij = rijLeegStuk;
+            int maximumRij = rijLeegStuk + 1;
+            if (maximumRij > puzzelGrid.RowDefinitions.Count - 1)
+                maximumRij = rijLeegStuk;
+
+            int kolomLeegstuk = Grid.GetColumn(leegStuk);
+            int minimumKolom = kolomLeegstuk - 1;
+            if (minimumKolom < 0)
+                minimumKolom = kolomLeegstuk;
+            int maximumKolom = kolomLeegstuk + 1;
+            if (maximumKolom > puzzelGrid.ColumnDefinitions.Count - 1)
+                maximumKolom = kolomLeegstuk;
+
+            for (int mogelijkeRij = minimumRij; mogelijkeRij <= maximumRij; mogelijkeRij++)
+            {
+                for (int mogelijkeKolom = minimumKolom; mogelijkeKolom <= maximumKolom; mogelijkeKolom++)
+                {
+                    if (mogelijkeRij == rijSleepStuk && mogelijkeKolom == kolomSleepstuk)
+                        return true;
+                }
+            }
+            return false;     
+        }
 
     }
 }
