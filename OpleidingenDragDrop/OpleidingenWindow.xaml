@@ -4,7 +4,7 @@
         Title="MainWindow" Height="350" Width="525">
     <DockPanel LastChildFill="False">
         <TextBlock Text="Overzicht Office programma's" DockPanel.Dock="Top" Margin="10,0" HorizontalAlignment="Center" FontSize="18"></TextBlock>
-        <ListBox Name="ListBoxProgrammas" DockPanel.Dock="Top" Height="100" Margin="0,10">
+        <ListBox Name="ListBoxProgrammas" DockPanel.Dock="Top" Height="100" Margin="0,10" MouseMove="Item_MouseMove">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"></StackPanel>
@@ -21,11 +21,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Name="ButtonDoorgeven" DockPanel.Dock="Bottom" Height="40" Content="DOORGEVEN" Margin="0,10"></Button>
+        <Button Name="ButtonDoorgeven" DockPanel.Dock="Bottom" Height="40" Content="DOORGEVEN" Margin="0,10" Click="ButtonDoorgeven_Click"></Button>
         <StackPanel>
         <TextBlock Name="GekendTextBlock" Text="Gekend" Margin="5,0"></TextBlock>
         </StackPanel>
-        <ListBox Name="ListBoxGekend" Width="165" Margin="10,0">
+        <ListBox Name="ListBoxGekend" Width="165" Margin="10,0" AllowDrop="True" Drop="Item_Drop">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" Width="150">
@@ -37,7 +37,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Name="ListBoxTeVolgen" Width="165" DockPanel.Dock="Right" Margin="10,0">
+        <ListBox Name="ListBoxTeVolgen" Width="165" DockPanel.Dock="Right" Margin="10,0" AllowDrop="True" Drop="Item_Drop">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" Width="150">

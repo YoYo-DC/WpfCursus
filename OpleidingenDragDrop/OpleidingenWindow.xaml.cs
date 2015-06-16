@@ -38,13 +38,80 @@ namespace Taak3
         private ListBoxItem VindListBoxItem(Object sleepItem)
         {
             DependencyObject keuze = (DependencyObject)sleepItem;
-            while(keuze != null)
+            while (keuze != null)
             {
                 if (keuze is ListBoxItem)
                     return (ListBoxItem)keuze;
                 keuze = VisualTreeHelper.GetParent(keuze);
             }
             return null;
+        }
+
+        private ListBox dragLijst;
+
+        // De eventHandler is toegekend aan de ListBox, niet het ListBoxItem!
+        // Dit wil niet zeggen dat de ListBox het event opgeroepen heeft!
+        // Het ListBoxItem kan je vinden door de OriginalSource-property van het event
+        //  als parameter door te geven aan de VindListBoxItem-method.
+
+        // Check zeker of het gesleepte item niet Null is!
+        // Dat is immers het geval wanneer je uit een leeg gedeelte binnen de ListBox begint te slepen
+        private void Item_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                dragLijst = (ListBox)sender;
+                ListBoxItem programmaItem = VindListBoxItem(e.OriginalSource);
+                if (dragLijst.SelectedIndex > -1 && programmaItem != null)
+                {
+                    DataObject sleepData = new DataObject("sleepProgramma", programmaItem.Content);
+                    DragDrop.DoDragDrop(programmaItem, sleepData, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void Item_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("sleepProgramma"))
+            {
+                OfficeProgramma dropProgramma = (OfficeProgramma)e.Data.GetData("sleepProgramma");
+                ListBox dropLijst = (ListBox)sender;
+                if (dragLijst != dropLijst)
+                {
+                    dragLijst.Items.Remove(dropProgramma);
+                    dropLijst.Items.Add(dropProgramma);
+                }
+            }
+        }
+
+        private void ButtonDoorgeven_Click(object sender, RoutedEventArgs e)
+        {
+            string boodschap = string.Empty;
+            if (ListBoxProgrammas.Items.Count == 0)
+                boodschap += "Alle programma's zijn toegewezen." + "\n";
+            else
+            {
+                boodschap += "Niet toegewezen programma's zijn:" + "\n";
+                foreach (OfficeProgramma programma in ListBoxProgrammas.Items)
+                    boodschap += programma.naam + "\n";
+            }
+            if (ListBoxGekend.Items.Count == 0)
+                boodschap += "Geen gekende programma's." + "\n";
+            else
+            {
+                boodschap = "Gekende programma's zijn:" + "\n";
+                foreach (OfficeProgramma programma in ListBoxGekend.Items)
+                    boodschap += programma.naam + "\n";
+            }
+            if (ListBoxTeVolgen.Items.Count == 0)
+                boodschap += "Geen te volgen programma's.";
+            else
+            {
+                boodschap += "Te volgen programma's zijn:" + "\n";
+                foreach (OfficeProgramma programma in ListBoxTeVolgen.Items)
+                    boodschap += programma.naam + "\n";
+            }
+            MessageBox.Show(boodschap,"Overzicht");
         }
     }
 }
