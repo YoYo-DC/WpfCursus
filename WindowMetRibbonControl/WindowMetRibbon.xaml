@@ -1,0 +1,135 @@
+﻿<RibbonWindow x:Class="WindowMetRibbonControl.WindowMetRibbon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:local="clr-namespace:WindowMetRibbonControl"
+       Height="350" Width="525" Icon="images\app48.png" Title="Window met Ribbon"
+              Closing="RibbonWindow_Closing">
+    <RibbonWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="LogischNaarVisueel"/>
+        <local:BooleanToFontWeight x:Key="LogischNaarFontDikte"/>
+        <local:BooleanToFontStyle x:Key="LogischNaarFontStijl"/>
+    </RibbonWindow.Resources>
+    <RibbonWindow.CommandBindings>
+        <CommandBinding Command="Help" Executed="HelpExecuted"></CommandBinding>
+        <CommandBinding Command="New" Executed="NewExecuted"></CommandBinding>
+        <CommandBinding Command="Open" Executed="OpenExecuted"></CommandBinding>
+        <CommandBinding Command="Save" Executed="SaveExecuted"></CommandBinding>
+        <CommandBinding Command="Close" Executed="CloseExecuted"></CommandBinding>
+        <CommandBinding Command="Print" Executed="PrintExecuted"></CommandBinding>
+        <CommandBinding Command="PrintPreview" Executed="PreviewExecuted"></CommandBinding>
+    </RibbonWindow.CommandBindings>
+
+    <DockPanel LastChildFill="True">
+        <Ribbon DockPanel.Dock="Top">
+            <Ribbon.HelpPaneContent>
+                <RibbonButton SmallImageSource="pack://application:,,,/Images/help64.png"
+                              Command="Help"
+                              ToolTipTitle="Help"
+                              ToolTipDescription="Opent het helpscherm"
+                              ToolTipFooterTitle="More Help"
+                              ToolTipFooterDescription="Drop op F1"
+                              ToolTipFooterImageSource="pack://application:,,,/Images/question16.png"
+                              ToolTipImageSource="pack://application:,,,/Images/help64.png"/>
+            </Ribbon.HelpPaneContent>
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar Height="24" Name="Qat">
+                    <RibbonSplitButton SmallImageSource="pack://application:,,,/Images/refresh16.png">
+                        <RibbonButton SmallImageSource="pack://application:,,,/Images/undo16.png" Command="Undo"
+                                      Label="Undo"/>
+                        <RibbonButton SmallImageSource="pack://application:,,,/Images/redo16.png" Command="Redo"
+                                      Label="Redo"/>
+                    </RibbonSplitButton>
+                    <RibbonToggleButton Name="ButtonVet" SmallImageSource="pack://application:,,,/Images/bold.png"/>
+                    <RibbonToggleButton Name="ButtonSchuin" SmallImageSource="pack://application:,,,/Images/italic.png"/>
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="pack://application:,,,/Images/bestand64.png" KeyTip="A">
+                    <RibbonApplicationMenuItem Header="New" Command="New"
+                                               ImageSource="pack://application:,,,/Images/new16.png"/>
+                    <RibbonApplicationMenuItem Header="Open" Command="Open"
+                                               ImageSource="pack://application:,,,/Images/open16.png"/>
+                    <RibbonApplicationMenuItem Header="Save" Command="Save"
+                                               ImageSource="pack://application:,,,/Images/save16.png"/>
+                    <RibbonSeparator/>
+                    <RibbonApplicationSplitMenuItem Header="Afdrukmogelijkheden"
+                                                    ImageSource="pack://application:,,,/Images/printer64.png">
+                        <RibbonApplicationMenuItem Header="Afdrukken" Command="Print"
+                                                   ImageSource="pack://application:,,,/Images/printer64.png"/>
+                        <RibbonApplicationMenuItem Header="Afdrukvoorbeeld" Command="PrintPreview"
+                                                   ImageSource="pack://application:,,,/Images/preview64.png"
+                                                   QuickAccessToolBarImageSource="pack://application:,,,/Images/preview64.png"/>
+                    </RibbonApplicationSplitMenuItem>
+                    <RibbonApplicationMenu.FooterPaneContent>
+                        <RibbonButton Command="Close" SmallImageSource="pack://application:,,,/Images/close64.png"
+                                      HorizontalAlignment="Right" Label="Afsluiten"/>
+                    </RibbonApplicationMenu.FooterPaneContent>
+                    <RibbonApplicationMenu.AuxiliaryPaneContent>
+                        <RibbonGallery Name="MRUGallery" CanUserFilter="False"
+                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                       SelectionChanged="MRUGallery_SelectionChanged">
+                            <RibbonGalleryCategory Name="MRUGalleryCat" Header="Recent Documents"/>
+                        </RibbonGallery>
+                    </RibbonApplicationMenu.AuxiliaryPaneContent>                           
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Bestand" KeyTip="B">
+                <RibbonGroup Header="Open/Save">
+                    <RibbonMenuButton LargeImageSource="pack://application:,,,/Images/bestand64.png" Label="Bestand"
+                                      KeyTip="B">
+                        <RibbonMenuItem Command="Open" ImageSource="pack://application:,,,/Images/open16.png"
+                                        Header="Open" KeyTip="O"/>
+                        <RibbonMenuItem Command="Save" ImageSource="pack://application:,,,/Images/save16.png"
+                                        Header="Save" KeyTip="S"/>
+                    </RibbonMenuButton>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Edit" KeyTip="E">
+                <RibbonGroup Header="Bewerken">
+                    <RibbonMenuItem Command="Undo" ImageSource="pack://application:,,,/Images/undo16.png"
+                                    Header="Undo"/>
+                    <RibbonMenuItem Command="Redo" ImageSource="pack://application:,,,/Images/redo16.png"
+                                    Header="Redo"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Opmaak">
+                    <RibbonCheckBox SmallImageSource="pack://application:,,,/Images/bold.png" Label="Vet" 
+                                    IsChecked="{Binding ElementName=ButtonVet,Path=IsChecked}"/>
+                    <RibbonCheckBox SmallImageSource="pack://application:,,,/Images/italic.png" Label="Schuin"
+                                    IsChecked="{Binding ElementName=ButtonSchuin,Path=IsChecked}"/>
+                    <RibbonCheckBox Name="checkboxAlleenLezen" SmallImageSource="pack://application:,,,/Images/ReadOnly16.png"
+                                    Label="Alleen lezen"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Kleur">
+                    <RibbonMenuButton Name="MenuKleur" LargeImageSource="pack://application:,,,/Images/kleur64.png"
+                                      Label="Letterkleur">
+                        <RibbonRadioButton SmallImageSource="pack://application:,,,/Images/black48.png" Label="Zwart"
+                                           IsChecked="True" Tag="#FF000000" Click="RibbonRadioButtonKleur_Click"/>
+                        <RibbonRadioButton SmallImageSource="pack://application:,,,/Images/red48.png" Label="Rood"
+                                           Tag="#FFFF0000" Click="RibbonRadioButtonKleur_Click"/>
+                        <RibbonRadioButton SmallImageSource="pack://application:,,,/Images/blue48.png" Label="Blauw"
+                                           Tag="#FF0000FF" Click="RibbonRadioButtonKleur_Click"/>
+                        <RibbonRadioButton SmallImageSource="pack://application:,,,/Images/green48.png" Label="Groen"
+                                           Tag="#FF00FF00" Click="RibbonRadioButtonKleur_Click"/>
+                    </RibbonMenuButton>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Nieuw" ContextualTabGroupHeader="TabNieuw">
+                <RibbonGroup>
+                    <RibbonMenuItem Command="New" ImageSource="pack://application:,,,/Images/New16.png"
+                                    Header="Leeg document"/>
+                </RibbonGroup>
+            </RibbonTab>
+            <Ribbon.ContextualTabGroups>
+                <RibbonContextualTabGroup Header="TabNieuw" Visibility="{Binding ElementName=TextBoxVoorbeeld,Path=IsReadOnly,
+                    Converter={StaticResource LogischNaarVisueel}}" Background="Green"/>
+            </Ribbon.ContextualTabGroups>
+        </Ribbon>
+        <TextBox  Name="TextBoxVoorbeeld" Text="Dit is voorbeeldtekst" 
+           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+           FontSize="24" TextWrapping="Wrap" MaxWidth="600" MaxHeight="900"
+                  IsReadOnly="{Binding ElementName=checkboxAlleenLezen, Path=IsChecked}"
+                  FontWeight="{Binding ElementName=ButtonVet,Path=IsChecked,Converter={StaticResource LogischNaarFontDikte}}"
+                  FontStyle="{Binding ElementName=ButtonSchuin,Path=IsChecked,Converter={StaticResource LogischNaarFontStijl}}">
+        </TextBox>
+    </DockPanel>
+</RibbonWindow>

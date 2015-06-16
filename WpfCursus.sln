@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpleidingenDragDrop", "Ople
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpdrachtSchuifSpel", "OpdrachtSchuifSpel\OpdrachtSchuifSpel.csproj", "{09F2F140-3C6E-43F0-AC19-FF798A6116DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowMetRibbonControl", "WindowMetRibbonControl\WindowMetRibbonControl.csproj", "{ECF0D878-B9A3-472A-9137-41F8DCE1F3CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{09F2F140-3C6E-43F0-AC19-FF798A6116DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09F2F140-3C6E-43F0-AC19-FF798A6116DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09F2F140-3C6E-43F0-AC19-FF798A6116DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECF0D878-B9A3-472A-9137-41F8DCE1F3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECF0D878-B9A3-472A-9137-41F8DCE1F3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECF0D878-B9A3-472A-9137-41F8DCE1F3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECF0D878-B9A3-472A-9137-41F8DCE1F3CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
