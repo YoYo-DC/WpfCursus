@@ -12,6 +12,20 @@
                                   SmallImageSource="pack://application:,,,/View/Images/save.jpg"/>
                 </RibbonQuickAccessToolBar>
             </Ribbon.QuickAccessToolBar>
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="pack://application:,,,/View/Images/Bestand.png">
+                    <RibbonApplicationMenuItem Header="Nieuw" ImageSource="pack://application:,,,/View/Images/new.jpg"/>
+                    <RibbonApplicationMenuItem Header="Openen" ImageSource="pack://application:,,,/View/Images/open.jpg"/>
+                    <RibbonApplicationMenuItem Header="Opslaan" ImageSource="pack://application:,,,/View/Images/save.jpg"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Bestand">
+                <RibbonGroup>
+                    <RibbonButton Label="Nieuw" LargeImageSource="pack://application:,,,/View/Images/new.jpg"/>
+                    <RibbonButton Label="Openen" LargeImageSource="pack://application:,,,/View/Images/open.jpg"/>
+                    <RibbonButton Label="Opslaan" LargeImageSource="pack://application:,,,/View/Images/save.jpg"/>
+                </RibbonGroup>
+            </RibbonTab>
         </Ribbon>
         <Grid Margin="20">
             <Grid.RowDefinitions>
