@@ -24,15 +24,25 @@ namespace WindowMetRibbonControl
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    /*
+     * Belangrijk voor inlezen van settings:
+     *  Test eerst of de setting bestaat!
+     */
+
     public partial class WindowMetRibbon : RibbonWindow
     {
         public WindowMetRibbon()
         {
             InitializeComponent();
+
+            LeesMRU();
+
             if (WindowMetRibbonControl.Properties.Settings.Default.qat != null)
             {
                 System.Collections.Specialized.StringCollection qatLijst =
-                    new System.Collections.Specialized.StringCollection();
+                    WindowMetRibbonControl.Properties.Settings.Default.qat;
                 int lijnNr = 0;
                 while (lijnNr < qatLijst.Count)
                 {
@@ -55,9 +65,9 @@ namespace WindowMetRibbonControl
                     Qat.Items.Add(nieuweKnop);
                     lijnNr += 2;
                 }
+                
             }
         }
-
 
         private void LeesBestand(string bestandsnaam)
         {
@@ -67,6 +77,7 @@ namespace WindowMetRibbonControl
                 {
                     TextBoxVoorbeeld.Text = bestand.ReadLine();
                 }
+                BijwerkenMRU(bestandsnaam);
             }
             catch (Exception ex)
             {
@@ -101,6 +112,7 @@ namespace WindowMetRibbonControl
                         bestand.WriteLine(TextBoxVoorbeeld.Text);
                     }
                 }
+                BijwerkenMRU(dlg.FileName);
             }
             catch (Exception ex)
             {
@@ -166,9 +178,56 @@ namespace WindowMetRibbonControl
                 }
             }
             if (qatLijst.Count > 0)
-                WindowMetRibbonControl.Properties.Settings.Default.Save();
+            {
+                WindowMetRibbonControl.Properties.Settings.Default.qat = qatLijst;
+            }
+            WindowMetRibbonControl.Properties.Settings.Default.Save();
+        }
+
+        private void LeesMRU()
+        {
+            MRUGalleryCat.Items.Clear();
+            if (WindowMetRibbonControl.Properties.Settings.Default.mru != null)
+            {
+                System.Collections.Specialized.StringCollection mruLijst =
+                    WindowMetRibbonControl.Properties.Settings.Default.mru;
+                for (int lijnNr = 0; lijnNr < mruLijst.Count; lijnNr++)
+                {
+                    MRUGalleryCat.Items.Add(mruLijst[lijnNr]);
+                }
+            }
+        }
+
+        private void BijwerkenMRU(string bestandsnaam)
+        {
+            System.Collections.Specialized.StringCollection mruLijst =
+                new System.Collections.Specialized.StringCollection();
+
+            if (WindowMetRibbonControl.Properties.Settings.Default.mru != null)
+            {
+                mruLijst = WindowMetRibbonControl.Properties.Settings.Default.mru;
+                int positie = mruLijst.IndexOf(bestandsnaam);
+                if (positie >= 0)
+                {
+                    mruLijst.RemoveAt(positie);
+                }
+                else
+                {
+                    if(mruLijst.Count >= 6)
+                    {
+                        mruLijst.RemoveAt(5);
+                    }
+                }
+            }
+            mruLijst.Insert(0, bestandsnaam);
+            WindowMetRibbonControl.Properties.Settings.Default.mru = mruLijst;
+            WindowMetRibbonControl.Properties.Settings.Default.Save();
+            LeesMRU();
         }
     }
+
+
+
     public class BooleanToFontWeight : IValueConverter
     {
 
