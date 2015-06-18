@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows;
+using System.ComponentModel;
 
 namespace OpdrachtParkeerBon.ViewModel
 {
@@ -20,47 +21,48 @@ namespace OpdrachtParkeerBon.ViewModel
             bonInfoValue = bonInfo;
         }
 
-        
-        public DateTime DatumBon
+
+        public string DatumBon
         {
             get
-            { return bonInfoValue.Datum; }
+            { return bonInfoValue.Datum.ToShortDateString(); }
             set
             {
-                bonInfoValue.Datum = value;
+                bonInfoValue.Datum = Convert.ToDateTime(value);
                 RaisePropertyChanged("DatumBon");
             }
         }
 
-        public DateTime AankomstTijdBon
+        public string AankomstTijdBon
         {
             get
-            { return bonInfoValue.AankomstTijd; }
+            { return bonInfoValue.AankomstTijd.ToLongTimeString(); }
             set
             {
-                bonInfoValue.AankomstTijd = value;
+                bonInfoValue.AankomstTijd = Convert.ToDateTime(value);
                 RaisePropertyChanged("AankomstTijdBon");
             }
         }
 
-        public decimal BedragBon
+        public string BedragBon
         {
             get
-            { return bonInfoValue.Bedrag; }
+            { return bonInfoValue.Bedrag.ToString() + " €"; }
             set
             {
-                bonInfoValue.Bedrag = value;
+                int pos = value.Trim().IndexOf(" ");
+                bonInfoValue.Bedrag = decimal.Parse(value.Remove(pos));
                 RaisePropertyChanged("BedragBon");
             }
         }
 
-        public DateTime VertrekTijdBon
+        public string VertrekTijdBon
         {
             get
-            { return bonInfoValue.VertrekTijd; }
+            { return bonInfoValue.VertrekTijd.ToLongTimeString(); }
             set
             {
-                bonInfoValue.VertrekTijd = value;
+                bonInfoValue.VertrekTijd = Convert.ToDateTime(value);
                 RaisePropertyChanged("VertrekTijdBon");
             }
         }
@@ -73,9 +75,9 @@ namespace OpdrachtParkeerBon.ViewModel
 
         private void NieuwBestand()
         {
-            DatumBon = DateTime.Today;
-            AankomstTijdBon = DateTime.Now;
-            VertrekTijdBon = DateTime.Now;
+            DatumBon = DateTime.Today.ToShortDateString();
+            AankomstTijdBon = DateTime.Now.ToLongTimeString();
+            VertrekTijdBon = DateTime.Now.ToLongTimeString();
         }
 
         public RelayCommand OpenCommand
@@ -96,10 +98,10 @@ namespace OpdrachtParkeerBon.ViewModel
                 {
                     using (StreamReader bestand = new StreamReader(dlg.FileName))
                     {
-                        DatumBon = Convert.ToDateTime(bestand.ReadLine());
-                        AankomstTijdBon = Convert.ToDateTime(bestand.ReadLine());
-                        BedragBon = decimal.Parse(bestand.ReadLine());
-                        VertrekTijdBon = Convert.ToDateTime(bestand.ReadLine());
+                        DatumBon = bestand.ReadLine();
+                        AankomstTijdBon = bestand.ReadLine();
+                        BedragBon = bestand.ReadLine();
+                        VertrekTijdBon = bestand.ReadLine();
                     }
                 }
                 catch (Exception ex)
@@ -109,10 +111,16 @@ namespace OpdrachtParkeerBon.ViewModel
             }
         }
 
+        public RelayCommand SaveCommand
+        {
+            get
+            { return new RelayCommand(SaveBestand); }
+        }
+
         private void SaveBestand()
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.FileName = DatumBon.ToString("dd-MM-yyyy") + "om" + AankomstTijdBon.ToLongTimeString();
+            dlg.FileName = string.Format("{0}om{1}", DatumBon.Replace('/','-'), AankomstTijdBon);
             dlg.DefaultExt = ".bon";
             dlg.Filter = "parkeerbonnen |*.bon";
             if (dlg.ShowDialog() == true)
@@ -121,12 +129,79 @@ namespace OpdrachtParkeerBon.ViewModel
                 {
                     using (StreamWriter bestand = new StreamWriter(dlg.FileName))
                     {
-                        bestand.WriteLine(DatumBon.ToShortDateString());
-                        bestand.WriteLine(AankomstTijdBon.ToLongTimeString());
-                        //next
+                        bestand.WriteLine(DatumBon);
+                        bestand.WriteLine(AankomstTijdBon);
+                        bestand.WriteLine(BedragBon);
+                        bestand.WriteLine(VertrekTijdBon);
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Opslaan mislukt: " + ex.Message);
                 }
             }
         }
+
+        public RelayCommand CloseCommand
+        {
+            get
+            { return new RelayCommand(CloseApp); }
+        }
+
+        private void CloseApp()
+        {
+            Application.Current.MainWindow.Close();
+        }
+
+        public RelayCommand<CancelEventArgs> ClosingCommand
+        {
+            get
+            { return new RelayCommand<CancelEventArgs>(ClosingApp); }
+        }
+
+        private void ClosingApp(CancelEventArgs e)
+        {
+            if (MessageBox.Show("Wilt u het programma afsluiten", "Afsluiten?", MessageBoxButton.YesNo,
+                MessageBoxImage.Question, MessageBoxResult.No)
+                 == MessageBoxResult.No)
+                e.Cancel = true;
+        }
+
+        public RelayCommand VerhoogCommand
+        {
+            get
+            { return new RelayCommand(VerhoogTeBetalen); }
+        }
+
+        private void VerhoogTeBetalen()
+        {
+            string bedrag = BedragBon.Trim().Remove(BedragBon.IndexOf(" "));
+            decimal bedragWaarde = decimal.Parse(bedrag);
+            bedragWaarde++;
+            BedragBon = bedragWaarde.ToString() + " €";
+            DateTime tijd = Convert.ToDateTime(VertrekTijdBon);
+            VertrekTijdBon = tijd.AddMinutes(30).ToLongTimeString();
+        }
+
+        public RelayCommand VerlaagCommand
+        {
+            get
+            { return new RelayCommand(VerlaagTeBetalen); }
+        }
+
+        private void VerlaagTeBetalen()
+        {
+            string bedrag = BedragBon.Trim().Remove(BedragBon.IndexOf(" "));
+            decimal bedragWaarde = decimal.Parse(bedrag);
+            if (bedragWaarde > 0)
+            {
+                bedragWaarde--;
+                BedragBon = bedragWaarde.ToString() + " €";
+                DateTime tijd = Convert.ToDateTime(VertrekTijdBon);
+                tijd.AddMinutes(-30);
+                VertrekTijdBon = tijd.ToLongTimeString();
+            }
+        }
+
     }
 }
